@@ -16,9 +16,12 @@ public class ServiceQueryByIP
     private Date date_last_query;
 
     public ServiceQueryByIP(String ip) {
+      synchronized (this)
+      {
         this.ip = ip;
         this.count = 0;
         this.date_last_query = new Date();
+    }
     }
 
     public String getIp() {
@@ -40,7 +43,7 @@ public class ServiceQueryByIP
         this.date_last_query = date_last_query;
     }
 
-    public Integer getCount() {
+    public  Integer getCount() {
         return count;
     }
 
