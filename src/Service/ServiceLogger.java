@@ -13,20 +13,23 @@ public class ServiceLogger {
     public static final byte[] CONTENT = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd' };
     static public final int PORT = Integer.parseInt(System.getProperty("port", "8081"));
     private static int count_query = 0;
-    private static HashSet<String> unique_hosts = new HashSet<>();
-    private static ArrayList<ServiceQueryByIP> count_query_by_ip = new ArrayList<>();
+    private static Vector<String> unique_hosts = new Vector<>();
+    private static Vector<ServiceQueryByIP> count_query_by_ip = new Vector<>();
     private static HashMap<String, Integer> count_url_requests = new HashMap<>();
     private static int count_of_open_channels = 0;
-    private static ArrayList<ServiceCustomConnection> connections = new ArrayList<>();
+    private static Vector<ServiceCustomConnection> connections = new Vector<>();
 
-    public static List<ServiceCustomConnection> getConnections() {
+    public static Vector<ServiceCustomConnection> getConnections() {
         if (connections.size()>16)
-        return connections.subList(connections.size()-16,connections.size());
-        else
+        {
+            Vector<ServiceCustomConnection> vector = new Vector<ServiceCustomConnection>();
+             vector.addAll(connections.subList(connections.size()-16,connections.size()));
+            return vector;
+        }
         return connections;
     }
 
-    public static void setConnections(ArrayList<ServiceCustomConnection> connections) {
+    public static void setConnections(Vector<ServiceCustomConnection> connections) {
         ServiceLogger.connections = connections;
     }
 
@@ -77,15 +80,15 @@ public class ServiceLogger {
         return count_query;
     }
 
-    public synchronized static HashSet<String> getUnique_hosts() {
+    public synchronized static Vector<String> getUnique_hosts() {
         return unique_hosts;
     }
 
-    public synchronized static void setUnique_hosts(HashSet<String> unique_hosts) {
+    public synchronized static void setUnique_hosts(Vector<String> unique_hosts) {
         ServiceLogger.unique_hosts = unique_hosts;
     }
 
-    public synchronized static ArrayList<ServiceQueryByIP> getCount_query_by_ip() {
+    public synchronized static Vector<ServiceQueryByIP> getCount_query_by_ip() {
         return count_query_by_ip;
     }
     public synchronized static void setCount_query_by_ip(String host) {
@@ -102,6 +105,3 @@ public class ServiceLogger {
          }
         }
 }
-
-
-
