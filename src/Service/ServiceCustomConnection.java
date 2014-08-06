@@ -22,6 +22,8 @@ public class ServiceCustomConnection {
     }
 
     public ServiceCustomConnection(String ip, String uri, long timestamp, long sendbytes, long recievedbytes, long connection_registred, long connection_inactive) {
+        synchronized (this)
+        {
         this.ip = ip;
         this.uri = uri;
         this.timestamp = timestamp/1000;
@@ -30,18 +32,26 @@ public class ServiceCustomConnection {
         this.connection_registred = connection_registred;
         this.connection_inactive = connection_inactive;
         this.speed = getSpeed();
+        }
     }
 
     public ServiceCustomConnection(long timestamp, int sendbytes, int recievedbytes, long connection_registred, long connection_inactive) {
+      synchronized (this)
+      {
         this.timestamp = timestamp;
         this.sendbytes = sendbytes;
         this.recievedbytes = recievedbytes;
         this.connection_registred = connection_registred;
         this.connection_inactive = connection_inactive;
         this.speed = this.getSpeed();
+      }
     }
-    public int getSpeed()
+    public  int getSpeed()
     {
+        if (connection_inactive == connection_registred)
+        {
+            return Integer.MAX_VALUE;
+        }
         return (int) (((sendbytes+recievedbytes)*1000)/(connection_inactive - connection_registred));
     }
 
@@ -101,7 +111,7 @@ public class ServiceCustomConnection {
         this.uri = uri;
     }
 
-    public void setSpeed() {
+    public synchronized void  setSpeed() {
         this.speed = (int) (((sendbytes+recievedbytes)*1000/(connection_inactive - connection_registred)));
     }
 
