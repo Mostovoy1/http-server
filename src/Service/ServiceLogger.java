@@ -33,19 +33,19 @@ public class ServiceLogger {
         ServiceLogger.connections = connections;
     }
 
-    public synchronized static int getCount_of_open_channels() {
+    public  static int getCount_of_open_channels() {
         return count_of_open_channels;
     }
 
-    public synchronized static void inc_Count_of_open_channels() {
+    public  static void inc_Count_of_open_channels() {
         ServiceLogger.count_of_open_channels++;
     }
-    public synchronized static void dec_Count_of_open_channels() {
+    public  static void dec_Count_of_open_channels() {
         ServiceLogger.count_of_open_channels--;
     }
 
 
-    public synchronized static void inc_count_url_requests(String url)
+    public  static void inc_count_url_requests(String url)
     {
         if (!count_url_requests.containsKey(url))
             count_url_requests.put(url, new Integer(1));
@@ -57,41 +57,41 @@ public class ServiceLogger {
            }
 
     }
-    public synchronized static HashMap<String,Integer> getCount_url_requests()
+    public  static HashMap<String,Integer> getCount_url_requests()
     {
         return count_url_requests;
     }
-     public synchronized static void inc_count_unique_hosts(String host)
+     public  static void inc_count_unique_hosts(String host)
      {
          if (!unique_hosts.contains(host))
              unique_hosts.add(host);
      }
-    public synchronized static int get_count_unique_hosts()
+    public  static int get_count_unique_hosts()
     {
         return unique_hosts.size();
     }
 
-    public synchronized static void inc_count()
+    public  static void inc_count()
     {
         count_query++;
     }
-    public synchronized static int getCount_query()
+    public  static int getCount_query()
     {
         return count_query;
     }
 
-    public synchronized static Vector<String> getUnique_hosts() {
+    public  static Vector<String> getUnique_hosts() {
         return unique_hosts;
     }
 
-    public synchronized static void setUnique_hosts(Vector<String> unique_hosts) {
+    public  static void setUnique_hosts(Vector<String> unique_hosts) {
         ServiceLogger.unique_hosts = unique_hosts;
     }
 
-    public synchronized static Vector<ServiceQueryByIP> getCount_query_by_ip() {
+    public  static Vector<ServiceQueryByIP> getCount_query_by_ip() {
         return count_query_by_ip;
     }
-    public synchronized static void setCount_query_by_ip(String host) {
+    public  static void setCount_query_by_ip(String host) {
         ServiceQueryByIP query_by_ip =  new ServiceQueryByIP(host);
         if (!count_query_by_ip.contains(query_by_ip))
             count_query_by_ip.add(query_by_ip);
